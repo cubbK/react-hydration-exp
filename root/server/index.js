@@ -3,6 +3,7 @@
 const express = require("express");
 const compression = require("compression");
 const { renderPage } = require("vite-plugin-ssr/server");
+const proxy = require("express-http-proxy");
 
 const isProduction = process.env.NODE_ENV === "production";
 const root = `${__dirname}/..`;
@@ -28,6 +29,30 @@ async function startServer() {
     app.use(viteDevMiddleware);
   }
 
+  //   app.get("/reverse-proxy/:microName/*", async (req, res, next) => {
+  //     const microName = req.params.microName;
+
+  //     switch (microName) {
+  //       case "micro-react":
+  //         return res.send("Hello World reverse proxy micro-react");
+  //       default:
+  //         return res.send("No such micro found");
+  //     }
+  //   });
+
+  app.use(
+    "/reverse-proxy/micro-react/*",
+    proxy("http://localhost:3001", {
+      proxyReqPathResolver: function (req) {
+        const urlToForward = req.baseUrl.replace(
+          "/reverse-proxy/micro-react",
+          ""
+        );
+        return urlToForward;
+      },
+    })
+  );
+
   app.get("*", async (req, res, next) => {
     const pageContextInit = {
       urlOriginal: req.originalUrl,
@@ -41,7 +66,7 @@ async function startServer() {
     res.status(statusCode).type(contentType).send(body);
   });
 
-  const port = process.env.PORT || 3001;
+  const port = process.env.PORT || 3000;
   app.listen(port);
   console.log(`Server running at http://localhost:${port}`);
 }

@@ -3,6 +3,9 @@
   "pipeline": {
     "dev": {
       "cache": false
+    },
+    "dev-1": {
+      "cache": false
     }
   }
 }
