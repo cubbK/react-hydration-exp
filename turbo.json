@@ -6,6 +6,9 @@
     },
     "dev-1": {
       "cache": false
+    },
+    "prod": {
+      "cache": false
     }
   }
 }

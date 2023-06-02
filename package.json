@@ -6,13 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "turbo run dev",
-    "dev-1": "turbo run dev-1"
+    "dev-1": "turbo run dev-1",
+    "prod": "turbo run prod"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "workspaces": [
     "micro-react",
+    "micro-react1",
     "root"
   ],
   "dependencies": {

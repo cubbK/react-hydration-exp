@@ -9,7 +9,7 @@ async function render(pageContext) {
     throw new Error(
       "Client-side render() hook expects pageContext.Page to be defined"
     );
-  const root = document.getElementById("micro-react");
+  const root = document.getElementById("micro-react1");
   if (!root) throw new Error("DOM element #react-root not found");
   hydrateRoot(
     root,
